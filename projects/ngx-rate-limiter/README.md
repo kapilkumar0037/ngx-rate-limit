@@ -1,6 +1,6 @@
 # NGX Rate Limiter
 
-This library provides an interceptor for Angular applications that allows you to implement rate limiting for HTTP requests made by your application. This interceptor helps prevent excessive traffic to your server by restricting the number of requests that can be made within a certain time interval. This can provide an extra layer of security and can be very impactful in today's world where creating bots becomes very easy and 100s of requests can be made within seconds.
+The `ngx-rate-limiter' library provides an interceptor for Angular applications that allows you to implement rate limiting for HTTP requests made by your application. This interceptor helps prevent excessive traffic to your server by restricting the number of requests that can be made within a certain time interval. This can provide an extra layer of security and can be very impactful in today's world where creating bots becomes very easy and 100s of requests can be made within seconds.
 
 ## Features
 
