@@ -1,27 +1,68 @@
-# RateLimiter
+# NGX Rate Limiter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+This library provides an interceptor for Angular applications that allows you to implement rate limiting for HTTP requests made by your application. This interceptor helps prevent excessive traffic to your server by restricting the number of requests that can be made within a certain time interval. This can provide an extra layer of security and can be very impactful in today's world where creating bots becomes very easy and 100s of requests can be made within seconds.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Global Rate Limiting**: Set a global rate limit for all HTTP requests made by your Angular application.
+- **Specific Endpoint Configuration**: Define specific rate limits for individual API endpoints based on the endpoint ending with.
+- **Dynamic Configuration**: Easily configure rate limits by providing a configuration object to the interceptor.
+- **Exceeding Rate Limit Handling**: Automatically block requests that exceed the configured rate limit for sepcific time. Once an endpoint exceeds the limit specified requests from that endpoint can be blocked for a specific amount of time . The interceptor return a status code 429 with message "Too Many Requests".
 
-## Code scaffolding
+## Getting started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Hope you already have an angular project, if not please create one using the below commands
 
-## Build
+```
+npm install -g @angular/cli
+ng new my-app
+cd my-app
+ng serve --open
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+once the angular application setup is ready, install the Ngx Rate Limiter using the following command
 
-## Running unit tests
+```
+npm i ngx-rate-limiter
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+### Use the interceptor
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Add the interceptor to `app.config` or `app.module.ts` depends on what Angular version consuming application has.
+```
+  { provide: HTTP_INTERCEPTORS, useClass: RateLimitInterceptor, multi: true },
+```
+### Provide RATE_LIMIT_CONFIG
+```
+{
+      provide: RATE_LIMIT_CONFIG,
+      useValue: {
+        specificEndPointsConfig: SPECIFIC_ENDPOINT_RATE_LIMIT_CONFIG,
+        allEndPointsConfig: GLOBAL_RATE_LIMIT_CONFIG,
+      },
+    },
+```
+**Config**
+```
+export const SPECIFIC_ENDPOINT_RATE_LIMIT_CONFIG: SpecificEndPointConfig[] = [
+  {
+    urlEndsWith: '/launches',
+    config: {
+      maxRequests: 10,
+      blockDuration: 10000,
+      intervalDuration: 60000,
+    },
+  },
+];
+export const GLOBAL_RATE_LIMIT_CONFIG: RateLimitProperties = {
+  maxRequests: 5,
+  intervalDuration: 10000,
+  blockDuration: 5000,
+};
+```
 
-## Further help
+that's it.
+If `allEndPointsConfig` config not provided, Rate limiter will only rate limit the specific endpoint. If both are provided then all endpoints config will work for all endpoints except the ones defined in specific endpoint config.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+So with the above provided config, if user makes more than 10 requests with a minute with endpoint ending with '/launches', the rate limiter will block all request for next 10 seconds.
