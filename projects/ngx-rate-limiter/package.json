@@ -1,6 +1,6 @@
 {
   "name": "ngx-rate-limiter",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "peerDependencies": {
     "@angular/common": "^14.2.0",
     "@angular/core": "^14.2.0"
@@ -15,7 +15,10 @@
     "url": "git+https://github.com/kapilkumar0037/ngx-rate-limiter.git"
   },
   "keywords": [
-    "countries dropdown",
+    "ngx-rate-limiter",
+    "rate limiter",
+    "rate limit",
+    "rate limiting",
     "angular"
   ],
   "homepage": "https://github.com/kapilkumar0037/ngx-rate-limiter#readme",

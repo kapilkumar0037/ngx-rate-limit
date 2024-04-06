@@ -8,7 +8,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 export const RATE_LIMIT_CONFIG = new InjectionToken<RateLimitConfig>('RATE_LIMIT_CONFIG');
 
