@@ -2,11 +2,22 @@
   "name": "ngx-rate-limiter",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^17.3.0",
-    "@angular/core": "^17.3.0"
+    "@angular/common": "^14.2.0",
+    "@angular/core": "^14.2.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "author": "Kapil Kumar <kapilkumar0037@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kapilkumar0037/ngx-rate-limiter.git"
+  },
+  "keywords": [
+    "countries dropdown",
+    "angular"
+  ],
+  "homepage": "https://github.com/kapilkumar0037/ngx-rate-limiter#readme",
   "sideEffects": false
 }
